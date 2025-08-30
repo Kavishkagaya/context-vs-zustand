@@ -1,12 +1,13 @@
 import { useProductContext } from "../contexts/productContext";
+import CartCard from "./CartCard";
 
 const CartContainer: React.FC = () => {
     const { cart } = useProductContext();
 
     return (
-        <div>
+        <div className="cart-container">
             {cart.map((product) => (
-                <div key={product.id}>{product.name}</div>
+                <CartCard key={product.id} product={product} />
             ))}
         </div>
     );

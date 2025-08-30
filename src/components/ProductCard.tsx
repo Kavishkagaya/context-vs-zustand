@@ -9,6 +9,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     const [count, setCount] = useState<number>(0)
 
     const addToCart = (product: Product, count: number) => {
+        if (count === 0) return;
         const stock = product.stock - count;
         productContext.setProducts(
             prevProducts => 
