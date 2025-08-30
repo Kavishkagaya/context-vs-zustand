@@ -6,6 +6,7 @@ const ProductContext = createContext<ProductContext | undefined>(undefined);
 
 const ProductContextProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     const [products, setProducts] = useState<Product[]>([]);
+    const [cart, setCart] = useState<Product[]>([]);
     const [theme, setTheme] = useState<string>("light");
 
     useEffect(()=>{
@@ -21,7 +22,7 @@ const ProductContextProvider: React.FC<{children: React.ReactNode}> = ({children
     }
 
     return (
-        <ProductContext.Provider value={{ products, setProducts, theme, toggleTheme }}>
+        <ProductContext.Provider value={{ products, setProducts, theme, toggleTheme, cart, setCart }}>
             {children}
         </ProductContext.Provider>
     );

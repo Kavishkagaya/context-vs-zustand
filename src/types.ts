@@ -14,6 +14,14 @@ interface ProductContext {
     setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
     theme: string;
     toggleTheme: () => void;
+    cart: Product[];
+    setCart: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
-export type { Product, ProductContext };
+interface CounterProps {
+    count: number;
+    setCount: React.Dispatch<React.SetStateAction<number>>;
+    maxCount?: number;
+}
+
+export type { Product, ProductContext, CounterProps };

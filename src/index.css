@@ -25,6 +25,7 @@
 /* Light theme */
 .light {
   --color-text: #213547;
+  --color-text-secondary: rgba(0, 0, 0, 0.6);
   --color-background: #ffffff;
   --color-link: #646cff;
   --color-link-hover: #747bff;
@@ -37,6 +38,7 @@
 /* Dark theme (explicit) */
 .dark {
   --color-text: rgba(255, 255, 255, 0.87);
+  --color-text-secondary: rgba(255, 255, 255, 0.6);
   --color-background: #242424;
   --color-link: #646cff;
   --color-link-hover: #535bf2;
@@ -65,6 +67,7 @@ a:hover {
 
 main {
   margin: 0;
+  padding: 1rem 0;
   min-width: 320px;
   min-height: 100vh;
 
@@ -94,4 +97,59 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.flex{
+  display: flex;
+}
+
+.container{
+  display: block;
+  width: 90%;
+  margin: auto;
+  min-width: 320px;
+}
+
+.justify-between{
+  justify-content: space-between;
+}
+
+.grid{
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  padding: 2rem 0;
+  width: 60%;
+}
+
+.product-price{
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.product-stock{
+  font-size: 1.1em;
+  color: var(--color-text-secondary);
+  display: block;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+}
+
+.counter button {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.counter span {
+  margin: 0 1em;
+  font-size: 1.2em;
+}
+
+.danger{
+  color: red;
 }

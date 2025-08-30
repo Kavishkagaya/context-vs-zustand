@@ -1,10 +1,10 @@
 import { ProductContextProvider } from './contexts/productContext'
-import ProductContainer from './components/ProductContainer'
+import ProductPage from './pages/ProductPage'
 
 function App() {
   return (
     <ProductContextProvider>
-      <ProductContainer />
+      <ProductPage />
     </ProductContextProvider>
   )
 }
