@@ -1,9 +1,9 @@
 import type { Product } from "../types";
 import { useProductContext } from "../contexts/productContext";
 import Counter from "./Counter";
-import { useRef, useState } from "react";
+import { useRef, useState, memo } from "react";
 
-const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+const ProductCardComponent: React.FC<{ product: Product }> = ({ product }) => {
 
     const productContext = useProductContext();
     const [count, setCount] = useState<number>(0)
@@ -45,4 +45,5 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     );
 }
 
+const ProductCard = memo(ProductCardComponent);
 export default ProductCard;

@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useRef, useState, memo } from "react";
 import Counter from "./Counter";
 import type { Product } from "../types";
 import { useProductContext } from "../contexts/productContext";
 
-const CartCard: React.FC<{ product: Product }> = ({ product }) => {
+const CartCardComponent: React.FC<{ product: Product }> = ({ product }) => {
     const [count, setCount] = useState(product.stock);
     const productContext = useProductContext();
+    const renderCount = useRef(0);
 
     const removeFromCart = () => {
         productContext.setProducts(
@@ -44,7 +45,8 @@ const CartCard: React.FC<{ product: Product }> = ({ product }) => {
     }
 
     return (
-        <div className="cart-item">
+        <div className="cart-card">
+            <p className="render-count">{renderCount.current++}</p>
             <div className="flex align-center gap">
                 <img src={product.image} alt={product.name} />
                 <div>
@@ -59,4 +61,5 @@ const CartCard: React.FC<{ product: Product }> = ({ product }) => {
     );
 }
 
+const CartCard = memo(CartCardComponent);
 export default CartCard;
