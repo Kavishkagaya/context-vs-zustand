@@ -6,8 +6,8 @@ const CartContainer: React.FC = () => {
 
     return (
         <div className="cart-container">
-            {cart.map((product) => (
-                <CartCard key={product.id} product={product} />
+            {Object.keys(cart).map((productId) => (
+                <CartCard key={productId} productId={Number(productId)} />
             ))}
         </div>
     );

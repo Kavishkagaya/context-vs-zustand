@@ -11,10 +11,10 @@ interface Product {
 
 interface storeType {
     theme: string;
-    products: Product[];
-    cart: Product[];
-    setProducts: (products: Product[]) => void;
-    setCart: (cart: Product[]) => void;
+    products: Record<number, Product>;
+    cart: Record<number, Product>;
+    setProducts: (products: Record<number, Product>) => void;
+    setCart: (cart: Record<number, Product>) => void;
     toggleTheme: () => void;
     addToCart: (product: Product, count: number) => void;
     removeFromCart: (product: Product) => void;

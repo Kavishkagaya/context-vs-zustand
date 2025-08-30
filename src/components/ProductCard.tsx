@@ -2,9 +2,10 @@ import { useProductStore } from "../store/store";
 import type { Product } from "../types";
 import Counter from "./Counter";
 import { useRef, useState } from "react";
+import * as React from "react";
 
-const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-
+const ProductCardComponent: React.FC<{ productId: number }> = ({ productId }) => {
+    const product = useProductStore(state => state.products[productId]);
     const addToCart = useProductStore(state => state.addToCart);
     const [count, setCount] = useState<number>(0)
 
@@ -30,4 +31,5 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     );
 }
 
+const ProductCard = React.memo(ProductCardComponent);
 export default ProductCard;

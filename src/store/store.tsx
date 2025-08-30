@@ -3,46 +3,62 @@ import type { storeType, Product } from '../types'
 import getProducts from '../data/dataLoader'
 
 export const useProductStore = create<storeType>((set) => {
-    const initialProducts = getProducts().products;
+    const initialProducts = getProducts();
 
     return {
         theme: 'light',
         products: initialProducts,
-        cart: [],
+        cart: {},
         toggleTheme: () => set((state) => ({
             theme: state.theme === 'light' ? 'dark' : 'light'
         })),
-        addToCart: (product, count) => {
+        addToCart: (product: Product, count: number) => {
             if (count === 0) return
             const stock = product.stock - count;
             set((state) => ({
-                products: state.products.map((p) =>
-                    p.id === product.id ? { ...p, stock } : p
-                ),
-                cart: [...state.cart, { ...product, stock: count }]
+                products: {
+                    ...state.products,
+                    [product.id]: { ...product, stock }
+                },
+                cart: {
+                    ...state.cart,
+                    [product.id]: { ...product, stock: count }
+                }
             }))
         },
         removeFromCart: (product: Product) => {
-            set((state) => ({
-                products: state.products.map((p) =>
-                    p.id === product.id ? { ...p, stock: product.stock } : p
-                ),
-                cart: state.cart.filter((item) => item.id !== product.id)
-            }))
+            set((state) => {
+                const finalStock = state.products[product.id].stock + product.stock;
+                const { [product.id]: _removed, ...remainingCart } = state.cart;
+                return {
+                    products: {
+                        ...state.products,
+                        [product.id]: { ...product, stock: finalStock }
+                    },
+                    cart: {
+                        ...remainingCart
+                    }
+                }
+            })
         },
         updateCart: (product, count) => {
             const change = product.stock - count;
             if (change === 0) return;
-            set((state) => ({
-                products: state.products.map((p) =>
-                    p.id === product.id ? { ...p, stock: change } : p
-                ),
-                cart: state.cart.map((item) =>
-                    item.id === product.id ? { ...item, stock: count } : item
-                )
-            }))
+            set((state) => {
+                const finalStock = state.products[product.id].stock + change;
+                return {
+                    products: {
+                        ...state.products,
+                        [product.id]: { ...product, stock: finalStock }
+                    },
+                    cart: {
+                        ...state.cart,
+                        [product.id]: { ...state.cart[product.id], stock: count }
+                    }
+                }
+            })
         },
-        setProducts: (products: Product[]) => set({ products }),
-        setCart: (cart: Product[]) => set({ cart }),
+        setProducts: (products: Record<number, Product>) => set({ products }),
+        setCart: (cart: Record<number, Product>) => set({ cart }),
     }
 })

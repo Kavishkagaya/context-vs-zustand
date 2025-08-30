@@ -6,8 +6,8 @@ const ProductContainer:React.FC = () => {
 
     return (
         <div className="grid">
-            {products.map(product => (
-                <ProductCard key={product.id} product={product} />
+            {Object.keys(products).map(productId => (
+                <ProductCard key={productId} productId={Number(productId)} />
             ))}
         </div>
     );

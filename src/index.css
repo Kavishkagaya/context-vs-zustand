@@ -161,6 +161,13 @@ button:focus-visible {
   padding: 1em;
 }
 
+.cart-card{
+  position: relative;
+  border: 1px solid #8888882f;
+  border-radius: 0.5em;
+  padding: 1em;
+}
+
 .product-price{
   font-size: 1.2em;
   font-weight: bold;
