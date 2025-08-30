@@ -1,8 +1,8 @@
-import { createContext, useEffect, useState } from "react";
-import type { Product } from "../types";
+import { createContext, useEffect, useState, useContext } from "react";
+import type { Product, ProductContext } from "../types";
 import getProducts from "../data/dataLoader";
 
-const ProductContext = createContext({});
+const ProductContext = createContext<ProductContext | undefined>(undefined);
 
 const ProductContextProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -16,11 +16,23 @@ const ProductContextProvider: React.FC<{children: React.ReactNode}> = ({children
         fetchProducts();
     }, []);
 
+    const toggleTheme: () => void = () => {
+        setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    }
+
     return (
-        <ProductContext.Provider value={{ products, setProducts, theme, setTheme }}>
+        <ProductContext.Provider value={{ products, setProducts, theme, toggleTheme }}>
             {children}
         </ProductContext.Provider>
     );
 };
 
-export { ProductContextProvider };
+const useProductContext = () => {
+    const context = useContext(ProductContext);
+    if (!context) {
+        throw new Error("useProductContext must be used within a ProductContextProvider");
+    }
+    return context;
+};
+
+export { ProductContextProvider, useProductContext };

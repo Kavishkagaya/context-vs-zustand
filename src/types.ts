@@ -9,4 +9,11 @@ interface Product {
     image: string;
 }
 
-export type { Product };
+interface ProductContext {
+    products: Product[];
+    setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+    theme: string;
+    toggleTheme: () => void;
+}
+
+export type { Product, ProductContext };
