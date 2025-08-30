@@ -1,9 +1,10 @@
-import { useProductContext } from "../contexts/productContext";
 import ProductContainer from "../components/ProductContainer";
 import CartContainer from "../components/CartContainer";
+import { useProductStore } from "../store/store";
 
 const ProductPage: React.FC = () => {
-  const { theme, toggleTheme } = useProductContext();
+  const theme = useProductStore(state => state.theme);
+  const toggleTheme = useProductStore(state => state.toggleTheme);
 
   return (
     <main className={theme}>

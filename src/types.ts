@@ -9,13 +9,16 @@ interface Product {
     image: string;
 }
 
-interface ProductContext {
-    products: Product[];
-    setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+interface storeType {
     theme: string;
-    toggleTheme: () => void;
+    products: Product[];
     cart: Product[];
-    setCart: React.Dispatch<React.SetStateAction<Product[]>>;
+    setProducts: (products: Product[]) => void;
+    setCart: (cart: Product[]) => void;
+    toggleTheme: () => void;
+    addToCart: (product: Product, count: number) => void;
+    removeFromCart: (product: Product) => void;
+    updateCart: (product: Product, count: number) => void;
 }
 
 interface CounterProps {
@@ -24,4 +27,4 @@ interface CounterProps {
     maxCount?: number;
 }
 
-export type { Product, ProductContext, CounterProps };
+export type { Product, storeType, CounterProps };

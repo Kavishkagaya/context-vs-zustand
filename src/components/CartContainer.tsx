@@ -1,8 +1,8 @@
-import { useProductContext } from "../contexts/productContext";
+import { useProductStore } from "../store/store";
 import CartCard from "./CartCard";
 
 const CartContainer: React.FC = () => {
-    const { cart } = useProductContext();
+    const cart = useProductStore(state => state.cart);
 
     return (
         <div className="cart-container">

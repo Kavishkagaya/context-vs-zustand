@@ -1,47 +1,12 @@
 import { useState } from "react";
 import Counter from "./Counter";
 import type { Product } from "../types";
-import { useProductContext } from "../contexts/productContext";
+import { useProductStore } from "../store/store";
 
 const CartCard: React.FC<{ product: Product }> = ({ product }) => {
     const [count, setCount] = useState(product.stock);
-    const productContext = useProductContext();
-
-    const removeFromCart = () => {
-        productContext.setProducts(
-            (prevProducts) => prevProducts.map((item) => {
-                if (item.id === product.id) {
-                    return { ...item, stock: item.stock + count };
-                }
-                return item;
-            })
-        )
-        productContext.setCart(
-            (prevCart) => prevCart.filter((item) => item.id !== product.id)
-        )
-    }
-
-    const updateCart = (count: number) => {
-        if (count === 0) removeFromCart();
-        const change = product.stock - count;
-        if(change === 0) return;
-        productContext.setProducts(
-            (prevProducts) => prevProducts.map((item) => {
-                if (item.id === product.id) {
-                    return { ...item, stock: item.stock + change };
-                }
-                return item;
-            })
-        )
-        productContext.setCart(
-            (prevCart)=> prevCart.map((item) => {
-                if (item.id === product.id) {
-                    return { ...item, stock: count };
-                }
-                return item;
-            })
-        )
-    }
+    const removeFromCart = useProductStore(state => state.removeFromCart);
+    const updateCart = useProductStore(state => state.updateCart);
 
     return (
         <div className="cart-item">
@@ -51,8 +16,8 @@ const CartCard: React.FC<{ product: Product }> = ({ product }) => {
                     <h3>{product.name}</h3>
                     <p className="product-price">{product.price}{product.currency}</p>
                     <Counter count={count} setCount={setCount} maxCount={product.stock} />
-                    <button onClick={removeFromCart}>Remove</button>
-                    <button onClick={() => updateCart(count)} disabled={count === product.stock}>Update</button>
+                    <button onClick={() => removeFromCart(product)}>Remove</button>
+                    <button onClick={() => updateCart(product, count)} disabled={count === product.stock}>Update</button>
                 </div>
             </div>
         </div>
