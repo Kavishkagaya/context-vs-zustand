@@ -1,9 +1,11 @@
-import React from 'react'
+import { ProductContextProvider } from "./contexts/productContext"
 
 function App() {
 
   return (
-    <></>
+    <ProductContextProvider>
+      <></>
+    </ProductContextProvider>
   )
 }
 
