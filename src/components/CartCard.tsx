@@ -16,7 +16,7 @@ const CartCardComponent: React.FC<{ productId: number }> = ({ productId }) => {
     }
 
     return (
-        <div className="cart-card">
+        <div className={`cart-card ${product.isRemoving ? 'disabled' : ''}`}>
             <p className="render-count">{renderCount.current++}</p>
             <div className="flex align-center gap">
                 <img src={product.image} alt={product.name} />

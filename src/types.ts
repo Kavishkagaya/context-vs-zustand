@@ -7,6 +7,7 @@ interface Product {
     category: string;
     stock: number;
     image: string;
+    isRemoving: boolean;
 }
 
 interface storeType {

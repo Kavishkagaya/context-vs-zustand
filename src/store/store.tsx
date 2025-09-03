@@ -28,18 +28,27 @@ export const useProductStore = create<storeType>((set) => {
         },
         removeFromCart: (product: Product) => {
             set((state) => {
-                const finalStock = state.products[product.id].stock + product.stock;
-                const { [product.id]: _removed, ...remainingCart } = state.cart;
                 return {
-                    products: {
-                        ...state.products,
-                        [product.id]: { ...product, stock: finalStock }
-                    },
                     cart: {
-                        ...remainingCart
+                        ...state.cart,
+                        [product.id]: { ...state.cart[product.id], isRemoving: true }
                     }
                 }
             })
+
+            setTimeout(() => {
+                set((state) => {
+                    const finalStock = state.products[product.id].stock + product.stock;
+                    const { [product.id]: _removed, ...remainingCart } = state.cart;
+                    return {
+                        products: {
+                            ...state.products,
+                            [product.id]: { ...product, stock: finalStock }
+                        },
+                        cart: { ...remainingCart }
+                    }
+                })
+            }, 10000)
         },
         updateCart: (product, count) => {
             const change = product.stock - count;
