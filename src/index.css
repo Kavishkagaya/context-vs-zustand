@@ -99,6 +99,15 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+select{
+  padding: 0.5em 2em;
+  border: 1px solid #f9f9f9;
+}
+
+select:focus{
+  outline: 1px solid black;
+}
+
 .flex{
   display: flex;
 }

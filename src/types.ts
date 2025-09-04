@@ -25,6 +25,7 @@ interface ProductContextType {
 
 interface CurrencyContextType {
     currency: string;
+    currencies: string[];
     setCurrency: React.Dispatch<React.SetStateAction<string>>;
     currencyConverter: (price: number, currency: string) => number;
     currencyFormatter: (price: number, currency: string) => string;

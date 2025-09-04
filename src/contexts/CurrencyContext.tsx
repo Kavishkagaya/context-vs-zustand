@@ -1,8 +1,8 @@
-import { createContext, useContext, useState } from "react";
-import type { CurrencyContext } from "../types";
+import { createContext, useContext, useMemo, useState } from "react";
+import type { CurrencyContextType } from "../types";
 import useCurrency from "../hooks/useCurrency";
 
-const CurrencyContext = createContext<CurrencyContext | undefined>(undefined);
+const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
 
 export const CurrencyContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [currency, setCurrency] = useState<string>("USD");
@@ -25,8 +25,12 @@ export const CurrencyContextProvider: React.FC<{ children: React.ReactNode }> = 
         return priceText;
     };
 
+    const currencies = useMemo(() => {
+        return Object.keys(currencyList || {});
+    }, [currencyList]);
+
     return (
-        <CurrencyContext.Provider value={{ currency, currencyConverter, currencyFormatter, setCurrency }}>
+        <CurrencyContext.Provider value={{ currency, currencyConverter, currencyFormatter, setCurrency, currencies }}>
             {children}
         </CurrencyContext.Provider>
     );
