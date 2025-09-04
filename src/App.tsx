@@ -1,11 +1,11 @@
-import { ProductContextProvider } from './contexts/productContext'
+import { CurrencyContextProvider } from './contexts/CurrencyContext'
 import ProductPage from './pages/ProductPage'
 
 function App() {
   return (
-    <ProductContextProvider>
+    <CurrencyContextProvider>
       <ProductPage />
-    </ProductContextProvider>
+    </CurrencyContextProvider>
   )
 }
 

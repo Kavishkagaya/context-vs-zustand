@@ -1,21 +1,33 @@
-interface Product {
+interface ProductBasic {
     id: number;
     name: string;
-    description: string;
+    image: string;
     price: number;
-    currency: string;
+}
+
+interface Product extends ProductBasic {
+    description: string;
     category: string;
     stock: number;
-    image: string;
+}
+
+interface CartProduct extends ProductBasic {
+    quantity: number;
 }
 
 interface ProductContext {
     products: Product[];
-    setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
-    theme: string;
-    toggleTheme: () => void;
-    cart: Product[];
-    setCart: React.Dispatch<React.SetStateAction<Product[]>>;
+    cart: CartProduct[];
+    addToCart: (id: number, count: number) => void;
+    removeFromCart: (id: number) => void;
+    updateCart: (id: number, count: number) => void;
+}
+
+interface CurrencyContext {
+    currency: string;
+    setCurrency: React.Dispatch<React.SetStateAction<string>>;
+    currencyConverter: (price: number, currency: string) => number;
+    currencyFormatter: (price: number, currency: string) => string;
 }
 
 interface CounterProps {
@@ -24,4 +36,4 @@ interface CounterProps {
     maxCount?: number;
 }
 
-export type { Product, ProductContext, CounterProps };
+export type { Product, CartProduct, ProductContext, CurrencyContext, CounterProps };
