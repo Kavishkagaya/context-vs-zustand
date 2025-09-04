@@ -1,4 +1,8 @@
-import type { CounterProps } from "../types";
+interface CounterProps {
+    count: number;
+    setCount: React.Dispatch<React.SetStateAction<number>>;
+    maxCount?: number;
+}
 
 const Counter: React.FC<CounterProps> = ({ count, setCount, maxCount }) => {
 

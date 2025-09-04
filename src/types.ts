@@ -16,8 +16,8 @@ interface CartProductType extends ProductBasicType {
 }
 
 interface ProductContextType {
-    products: ProductType[];
-    cart: CartProductType[];
+    products: Record<number, ProductType>;
+    cart: Record<number, CartProductType>;
     addToCart: (id: number, count: number) => void;
     removeFromCart: (id: number) => void;
     updateCart: (id: number, count: number) => void;
@@ -36,10 +36,12 @@ interface ThemeContextType {
     toggleTheme: () => void;
 }
 
-interface CounterProps {
-    count: number;
-    setCount: React.Dispatch<React.SetStateAction<number>>;
-    maxCount?: number;
+interface ProductStoreType{
+    products: ProductType[];
+    cart: CartProductType[];
+    addToCart: (id: number, count: number) => void;
+    removeFromCart: (id: number) => void;
+    updateCart: (id: number, count: number) => void;
 }
 
-export type { ProductType, CartProductType, ProductContextType, CurrencyContextType, ThemeContextType, CounterProps };
+export type { ProductType, CartProductType, ProductContextType, CurrencyContextType, ThemeContextType, ProductStoreType };

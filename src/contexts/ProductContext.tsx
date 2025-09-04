@@ -1,86 +1,63 @@
-import { createContext, useEffect, useState, useContext } from "react";
-import type { CartProductType, ProductType, ProductContextType } from "../types";
-import getProducts from "../data/dataLoader";
+import { createContext, useState, useContext } from "react";
+import type { CartProductType, ProductContextType } from "../types";
+import useFetchProducts from "../hooks/useFetchProducts";
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 const ProductContextProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
-    const [products, setProducts] = useState<ProductType[]>([]);
-    const [cart, setCart] = useState<CartProductType[]>([]);
-
-    useEffect(()=>{
-        const fetchProducts = async () => {
-            const response = await getProducts();
-            setProducts(response.products);
-        };
-        fetchProducts();
-    }, []);
+    const { products, setProducts } = useFetchProducts();
+    const [cart, setCart] = useState<Record<number, CartProductType>>({});
 
     const addToCart = (id: number, quantity: number) => {
-        const product = products.find(p => p.id === id);
+        const product = products[id];
         if (!product || quantity === 0) return;
         const stock = product.stock - quantity;
         setProducts(
-            prevProducts => 
-                prevProducts.map(
-                    p => 
-                        p.id === product.id ? 
-                    { ...p, stock } : p
-                )
+            prevProducts => ({ ...prevProducts, [id]: { ...prevProducts[id], stock } })
         );
         setCart(
             prevCart => {
-                const existingItem = prevCart.find(item => item.id === id);
+                const existingItem = prevCart[id];
                 if (existingItem) {
-                    return prevCart.map(item =>
-                        item.id === id ? { ...item, quantity: item.quantity + quantity } : item
-                    );
+                    return {
+                        ...prevCart,
+                        [id]: { ...prevCart[id], quantity: existingItem.quantity + quantity }
+                    }
                 }
-                return [
+                return {
                     ...prevCart,
-                    { ...product, quantity: quantity }
-                ];
+                    [id]: { ...product, quantity: quantity }
+                }
             }
         )
     }
 
     const removeFromCart = (id: number) => {
-        const cartProduct = cart.find(item => item.id === id);
+        const cartProduct = cart[id];
         if (!cartProduct) return;
         setProducts(
-            (prevProducts) => prevProducts.map((item) => {
-                if (item.id === id) {
-                    return { ...item, stock: item.stock + cartProduct.quantity };
-                }
-                return item;
-            })
+            (prevProducts) => ({ ...prevProducts, [id]: { ...prevProducts[id], stock: prevProducts[id].stock + cartProduct.quantity } })
         )
         setCart(
-            (prevCart) => prevCart.filter((item) => item.id !== id)
+            (prevCart) => {
+                const newCart = { ...prevCart };
+                delete newCart[id];
+                return newCart;
+            }
         )
     }
 
     const updateCart = (id: number, quantity: number) => {
-        const cartProduct = cart.find(item => item.id === id);
+        const cartProduct = cart[id];
         if (!cartProduct) return;
         if (quantity === 0) return removeFromCart(id);
         const change = cartProduct.quantity - quantity;
         if(change === 0) return;
         setProducts(
-            (prevProducts) => prevProducts.map((item) => {
-                if (item.id === cartProduct.id) {
-                    return { ...item, stock: item.stock + change };
-                }
-                return item;
-            })
+            (prevProducts) => ({ ...prevProducts, [id]: { ...prevProducts[cartProduct.id], stock: prevProducts[cartProduct.id].stock + change } })
         )
         setCart(
-            (prevCart)=> prevCart.map((item) => {
-                if (item.id === cartProduct.id) {
-                    return { ...item, quantity: quantity };
-                }
-                return item;
-            })
+            (prevCart)=> ({ ...prevCart, [id]: { ...prevCart[id], quantity: quantity } })
         )
     }
 
