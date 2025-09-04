@@ -5,9 +5,11 @@ import { ProductContextProvider } from "../contexts/ProductContext";
 const ProductPage: React.FC = () => {
   return (
     <ProductContextProvider>
-      <div className="flex">
-        <ProductContainer />
-        <CartContainer />
+      <div className="container">
+        <div className="flex">
+          <ProductContainer />
+          <CartContainer />
+        </div>
       </div>
     </ProductContextProvider>
   );

@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState, useContext } from "react";
-import type { CartProduct, Product, ProductContext } from "../types";
+import type { CartProductType, ProductType, ProductContextType } from "../types";
 import getProducts from "../data/dataLoader";
 
-const ProductContext = createContext<ProductContext | undefined>(undefined);
+const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 const ProductContextProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [cart, setCart] = useState<CartProduct[]>([]);
+    const [products, setProducts] = useState<ProductType[]>([]);
+    const [cart, setCart] = useState<CartProductType[]>([]);
 
     useEffect(()=>{
         const fetchProducts = async () => {
