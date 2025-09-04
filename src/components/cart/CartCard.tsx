@@ -18,7 +18,7 @@ const CartCard: React.FC<CartCardProps> = ({ cartProduct, children, onRemove, on
     }, [cartProduct.quantity]);
 
     return (
-        <div className="cart-item">
+        <div className="cart-card">
             <p className="render-count">{renderCount.current++}</p>
             <div className="flex align-center gap">
                 <img src={cartProduct.image} alt={cartProduct.name} />

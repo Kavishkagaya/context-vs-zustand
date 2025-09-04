@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import currencyLoader from "../data/currencyLoader";
 
 const useCurrency = (baseCurrency: string) => {
-    const [currencyList, setCurrencyList] = useState<Record<string, number>>();
+    const [currencyList, setCurrencyList] = useState<Record<string, number>>({});
 
     
     useEffect(() => {

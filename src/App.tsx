@@ -1,24 +1,34 @@
-import ProductPage from './pages/ProductPage'
-import { useThemeContext } from './contexts/ThemeContext.tsx'
-import Header from './components/Header.tsx'
-import CurrencySelect from './components/CurrencySelect.tsx'
-import { useCurrencyContext } from './contexts/CurrencyContext.tsx'
+import { useState } from "react";
+import { CurrencyContextProvider } from "./contexts/CurrencyContext"
+import { ThemeContextProvider } from "./contexts/ThemeContext"
+import ContextRootContainer from "./pages/ContextRootContainer"
+import StoreRootContainer from "./pages/StoreRootContainer";
 
 function App() {
-  const { theme, toggleTheme } = useThemeContext()
-  const { currency, setCurrency, currencies } = useCurrencyContext()
+  const [method, setMethod] = useState("context");
+
   return (
-    <main className={theme}>
-      <Header>
-        <CurrencySelect
-          selectedCurrency={currency}
-          setSelectedCurrency={setCurrency}
-          currencies={currencies}
-        />
-        <button onClick={toggleTheme}>Toggle Theme</button>
-      </Header>
-      <ProductPage />
-    </main>
+    <div className="App">
+      <div className="radio-group">
+        <label>
+          <input type="radio" name="method" value="context" checked={method === "context"} onChange={() => setMethod("context")} />
+          Context
+        </label>
+        <label>
+          <input type="radio" name="method" value="zustand" checked={method === "zustand"} onChange={() => setMethod("zustand")} />
+          Zustand
+        </label>
+      </div>
+      {method === "context" ? (
+        <ThemeContextProvider>
+          <CurrencyContextProvider>
+            <ContextRootContainer />
+          </CurrencyContextProvider>
+        </ThemeContextProvider>
+      ) : (
+        <StoreRootContainer />
+      )}
+    </div>
   )
 }
 

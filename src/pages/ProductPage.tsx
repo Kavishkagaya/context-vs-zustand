@@ -1,18 +1,33 @@
-import ProductContainer from "../components/product/ContextProductContainer";
-import CartContainer from "../components/cart/ContextCartContainer";
-import { ProductContextProvider } from "../contexts/ProductContext";
+import ContextProductContainer from "../components/product/ContextProductContainer";
+import ContextCartContainer from "../components/cart/ContextCartContainer";
+import StoreProductContainer from "../components/product/StoreProductContainer";
+import StoreCartContainer from "../components/cart/StoreCartContainer";
 
-const ProductPage: React.FC = () => {
-  return (
-    <ProductContextProvider>
+interface ProductPageProps {
+  mode: "context" | "zustand";
+}
+
+const ProductPage: React.FC<ProductPageProps> = ({mode}) => {
+  if (mode === 'context') {
+    return (
       <div className="container">
         <div className="flex">
-          <ProductContainer />
-          <CartContainer />
+          <ContextProductContainer />
+          <ContextCartContainer />
         </div>
       </div>
-    </ProductContextProvider>
-  );
+    );
+  }
+  if (mode === 'zustand') {
+    return (
+      <div className="container">
+        <div className="flex">
+          <StoreProductContainer />
+          <StoreCartContainer />
+        </div>
+      </div>
+    );
+  }
 };
 
 export default ProductPage;

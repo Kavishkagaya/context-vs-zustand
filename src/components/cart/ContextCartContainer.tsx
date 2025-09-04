@@ -3,7 +3,7 @@ import type { CartProductType } from "../../types";
 import CartCard from "./CartCard";
 import ContextPriceTag from "../pricetag/ContextPriceTag";
 
-const CartContainer: React.FC = () => {
+const ContextCartContainer: React.FC = () => {
     const { cart, removeFromCart, updateCart } = useProductContext();
 
     return (
@@ -17,4 +17,4 @@ const CartContainer: React.FC = () => {
     );
 }
 
-export default CartContainer;
+export default ContextCartContainer;
