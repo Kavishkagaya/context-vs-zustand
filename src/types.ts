@@ -36,25 +36,29 @@ interface ThemeContextType {
     toggleTheme: () => void;
 }
 
-interface ProductStoreType{
+interface ProductStoreType {
     products: Record<number, ProductType>;
     cart: Record<number, CartProductType>;
-    addToCart: (id: number, count: number) => void;
-    removeFromCart: (id: number) => void;
-    updateCart: (id: number, count: number) => void;
+    actions: {
+        addToCart: (id: number, count: number) => void;
+        removeFromCart: (id: number) => void;
+        updateCart: (id: number, count: number) => void;
+    }
 }
 
-interface CurrencyStoreType{
+interface CurrencyStoreType {
     currency: string;
     currencies: string[];
     currencyList: Record<string, number>;
-    loadCurrencies: (baseCurrency: string) => Promise<void>;
-    setCurrency: (currency: string) => void;
-    currencyConverter: (price: number, currency: string) => number;
-    currencyFormatter: (price: number, currency: string) => string;
+    actions: {
+        loadCurrencies: (baseCurrency: string) => Promise<void>;
+        setCurrency: (currency: string) => void;
+        currencyConverter: (price: number, currency: string) => number;
+        currencyFormatter: (price: number, currency: string) => string;
+    }
 }
 
-interface ThemeStoreType{
+interface ThemeStoreType {
     theme: string;
     toggleTheme: () => void;
 }

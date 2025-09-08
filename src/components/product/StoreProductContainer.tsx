@@ -3,16 +3,15 @@ import type { ProductType } from "../../types";
 import { useProductStore } from "../../store/ProductStore";
 import StorePriceTag from "../pricetag/StorePriceTag";
 import { memo, useCallback } from "react";
+import { useProductActions } from "../../hooks/useProductActions";
 
 const StoreProductContainer:React.FC = () => {
     const products = useProductStore((state) => state.products);
-    const addToCart = useProductStore((state) => state.addToCart);
+    const addToCart = useProductActions().addToCart;
 
     const handleAddToCart = useCallback((id: number, quantity: number) => {
         addToCart(id, quantity);
     }, [addToCart]);
-
-    const MemoPriceTag = memo(StorePriceTag);
 
     return (
         <div className="grid">
@@ -20,7 +19,7 @@ const StoreProductContainer:React.FC = () => {
                 const currentProduct = useProductStore(state => state.products[Number(id)]);
                 return (
                     <ProductCard key={id} product={currentProduct} addToCart={handleAddToCart} >
-                        <MemoPriceTag price={currentProduct.price} />
+                        <StorePriceTag price={currentProduct.price} />
                     </ProductCard>
                 );
             })}

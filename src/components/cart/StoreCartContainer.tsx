@@ -2,11 +2,11 @@ import type { CartProductType } from "../../types";
 import CartCard from "./CartCard";
 import { useProductStore } from "../../store/ProductStore";
 import StorePriceTag from "../pricetag/StorePriceTag";
+import { useProductActions } from "../../hooks/useProductActions";
 
 const StoreCartContainer: React.FC = () => {
     const cart = useProductStore((state) => state.cart);
-    const removeFromCart = useProductStore((state) => state.removeFromCart);
-    const updateCart = useProductStore((state) => state.updateCart);
+    const {removeFromCart, updateCart} = useProductActions();
 
     return (
         <div className="cart-container">

@@ -1,3 +1,4 @@
+import { useCurrencyActions } from "../../hooks/useCurrencyActions";
 import { useCurrencyStore } from "../../store/CurrencyStore";
 import PriceTag from "./PriceTag";
 
@@ -7,8 +8,7 @@ interface PriceTagProps{
 
 const StorePriceTag: React.FC<PriceTagProps> = ({ price }) => {
     const currency = useCurrencyStore(state=>state.currency)
-    const currencyConverter = useCurrencyStore(state=>state.currencyConverter)
-    const currencyFormatter = useCurrencyStore(state=>state.currencyFormatter)
+    const {currencyConverter, currencyFormatter} = useCurrencyActions();
 
     return (
         <PriceTag price={price} currency={currency} converter={currencyConverter} formatter={currencyFormatter} />

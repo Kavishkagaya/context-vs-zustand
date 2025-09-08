@@ -19,6 +19,7 @@ const ProductPage: React.FC<ProductPageProps> = ({mode}) => {
     );
   }
   if (mode === 'zustand') {
+    console.log("page rerenders");
     return (
       <div className="container">
         <div className="flex">

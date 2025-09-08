@@ -4,19 +4,21 @@ import ProductPage from "./ProductPage";
 import {useThemeStore} from "../store/ThemeStore"
 import { useCurrencyStore } from "../store/CurrencyStore";
 import { useEffect } from "react";
+import { useCurrencyActions } from "../hooks/useCurrencyActions";
 
 
 const StoreRootContainer: React.FC = () => {
     const theme = useThemeStore((state) => state.theme);
     const toggleTheme = useThemeStore((state) => state.toggleTheme);
     const currency = useCurrencyStore((state) => state.currency);
-    const setCurrency = useCurrencyStore((state) => state.setCurrency);
     const currencies = useCurrencyStore((state) => state.currencies);
-    const loadCurrencies = useCurrencyStore((state) => state.loadCurrencies);
+    const {setCurrency, loadCurrencies} = useCurrencyActions();
 
     useEffect(()=>{
         loadCurrencies('USD')
     }, [])
+
+    console.log("root rerenders");
 
     return (
         <main className={theme}>
