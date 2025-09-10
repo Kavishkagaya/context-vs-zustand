@@ -1,10 +1,10 @@
 import CurrencySelect from "../components/CurrencySelect";
 import Header from "../components/Header";
-import ProductPage from "./ProductPage";
-import {useThemeStore} from "../store/ThemeStore"
-import { useCurrencyStore } from "../store/CurrencyStore";
+import ProductPage from "./pages/ProductPage";
+import { useThemeStore } from "./store/ThemeStore"
+import { useCurrencyStore } from "./store/CurrencyStore";
 import { useEffect } from "react";
-import { useCurrencyActions } from "../hooks/useCurrencyActions";
+import { useCurrencyActions } from "./hooks/useCurrencyActions";
 
 
 const StoreRootContainer: React.FC = () => {
@@ -18,8 +18,6 @@ const StoreRootContainer: React.FC = () => {
         loadCurrencies('USD')
     }, [])
 
-    console.log("root rerenders");
-
     return (
         <main className={theme}>
             <Header>
@@ -30,7 +28,7 @@ const StoreRootContainer: React.FC = () => {
                 />
                 <button onClick={toggleTheme}>Toggle Theme</button>
             </Header>
-            <ProductPage mode={"zustand"} />
+            <ProductPage />
         </main>
     );
 }

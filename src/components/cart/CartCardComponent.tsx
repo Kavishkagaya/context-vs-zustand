@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Counter from "../Counter";
 import type { CartProductType } from "../../types";
 
@@ -9,7 +9,7 @@ interface CartCardProps {
     onUpdate: (id: number, newCount: number) => void;
 }
 
-const CartCard: React.FC<CartCardProps> = ({ cartProduct, children, onRemove, onUpdate }) => {
+const CartCardComponent: React.FC<CartCardProps> = ({ cartProduct, children, onRemove, onUpdate }) => {
     const [count, setCount] = useState(cartProduct.quantity);
     const renderCount = useRef(0);
 
@@ -34,4 +34,4 @@ const CartCard: React.FC<CartCardProps> = ({ cartProduct, children, onRemove, on
     );
 }
 
-export default memo(CartCard);
+export default CartCardComponent;

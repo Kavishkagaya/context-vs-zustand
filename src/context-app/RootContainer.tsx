@@ -1,12 +1,12 @@
 import CurrencySelect from "../components/CurrencySelect";
 import Header from "../components/Header";
-import { useCurrencyContext } from "../contexts/CurrencyContext";
-import { ProductContextProvider } from "../contexts/ProductContext";
-import { useThemeContext } from "../contexts/ThemeContext";
-import ProductPage from "./ProductPage";
+import { useCurrencyContext } from "./contexts/CurrencyContext";
+import { ProductContextProvider } from "./contexts/ProductContext";
+import { useThemeContext } from "./contexts/ThemeContext";
+import ProductPage from "./pages/ProductPage";
 
 
-const ContextRootContainer: React.FC = () => {
+const RootContainer: React.FC = () => {
     const { theme, toggleTheme } = useThemeContext()
     const { currency, setCurrency, currencies } = useCurrencyContext()
 
@@ -21,10 +21,10 @@ const ContextRootContainer: React.FC = () => {
                 <button onClick={toggleTheme}>Toggle Theme</button>
             </Header>
             <ProductContextProvider>
-                <ProductPage mode="context" />
+                <ProductPage />
             </ProductContextProvider>
         </main>
     );
 }
 
-export default ContextRootContainer;
+export default RootContainer;

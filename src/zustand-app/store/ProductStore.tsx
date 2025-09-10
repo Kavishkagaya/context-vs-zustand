@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import type { ProductStoreType } from '../types'
-import getProducts from '../data/dataLoader';
+import type { ProductStoreType } from '../../types'
+import getProducts from '../../data/dataLoader';
 
 export const useProductStore = create<ProductStoreType>((set) => {
     const initialProducts = getProducts().products;
@@ -17,11 +17,11 @@ export const useProductStore = create<ProductStoreType>((set) => {
                     return {
                         products: {
                             ...state.products,
-                            [product.id]: { ...product, stock }
+                            [id]: { ...product, stock }
                         },
                         cart: {
                             ...state.cart,
-                            [product.id]: { ...product, quantity: quantity }
+                            [id]: { ...product, quantity }
                         }
                     }
                 })

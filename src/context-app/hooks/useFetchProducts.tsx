@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import getProducts from "../data/dataLoader";
-import type { ProductType } from "../types";
+import getProducts from "../../data/dataLoader";
+import type { ProductType } from "../../types";
 
 const useFetchProducts = () => {
     const [products, setProducts] = useState<Record<number, ProductType>>({});

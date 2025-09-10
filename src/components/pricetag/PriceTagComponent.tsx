@@ -5,7 +5,7 @@ interface PriceTagProps{
     formatter: (price: number, currency: string) => string;
 }
 
-const PriceTag : React.FC<PriceTagProps> = ({price, currency = 'USD', converter, formatter}) => {
+const PriceTagComponent : React.FC<PriceTagProps> = ({price, currency = 'USD', converter, formatter}) => {
 
     const convertedPrice = converter(price, currency);
 
@@ -16,4 +16,4 @@ const PriceTag : React.FC<PriceTagProps> = ({price, currency = 'USD', converter,
     );
 }
 
-export default PriceTag;
+export default PriceTagComponent;

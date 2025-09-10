@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { CurrencyContextProvider } from "./contexts/CurrencyContext"
-import { ThemeContextProvider } from "./contexts/ThemeContext"
-import ContextRootContainer from "./pages/ContextRootContainer"
-import StoreRootContainer from "./pages/StoreRootContainer";
+import ContextApp from "./context-app/App";
+import ZustandApp from "./zustand-app/App";
 
 function App() {
   const [method, setMethod] = useState("context");
@@ -20,13 +18,9 @@ function App() {
         </label>
       </div>
       {method === "context" ? (
-        <ThemeContextProvider>
-          <CurrencyContextProvider>
-            <ContextRootContainer />
-          </CurrencyContextProvider>
-        </ThemeContextProvider>
+        <ContextApp />
       ) : (
-        <StoreRootContainer />
+        <ZustandApp />
       )}
     </div>
   )

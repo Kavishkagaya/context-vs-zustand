@@ -1,12 +1,12 @@
 import { createContext, useContext, useMemo, useState } from "react";
-import type { CurrencyContextType } from "../types";
-import useCurrency from "../hooks/useCurrency";
+import type { CurrencyContextType } from "../../types";
+import useFetchCurrency from "../hooks/useFetchCurrency";
 
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
 
 export const CurrencyContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [currency, setCurrency] = useState<string>("USD");
-    const {currencyList} = useCurrency("USD");
+    const {currencyList} = useFetchCurrency("USD");
     
     const currencyConverter = (price: number, currency: string) => {
         if (!currencyList) return price;

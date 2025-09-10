@@ -1,6 +1,6 @@
 import type { ProductType } from "../../types";
 import Counter from "../Counter";
-import { useRef, useState, memo } from "react";
+import { useRef, useState } from "react";
 
 interface ProductCardProps {
     product: ProductType;
@@ -8,7 +8,7 @@ interface ProductCardProps {
     addToCart: (id: number, quantity: number) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart, children }) => {
+const ProductCardComponent: React.FC<ProductCardProps> = ({ product, addToCart, children }) => {
 
     const [count, setCount] = useState<number>(0)
     const renderCount = useRef(0);
@@ -33,4 +33,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart, children 
     );
 }
 
-export default memo(ProductCard);
+export default ProductCardComponent;

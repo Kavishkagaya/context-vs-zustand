@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import currencyLoader from "../data/currencyLoader";
+import currencyLoader from "../../data/currencyLoader";
 
-const useCurrency = (baseCurrency: string) => {
+const useFetchCurrency = (baseCurrency: string) => {
     const [currencyList, setCurrencyList] = useState<Record<string, number>>({});
 
     
@@ -23,4 +23,4 @@ const useCurrency = (baseCurrency: string) => {
     };
 };
 
-export default useCurrency;
+export default useFetchCurrency;

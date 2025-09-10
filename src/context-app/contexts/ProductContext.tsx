@@ -1,5 +1,5 @@
 import { createContext, useState, useContext } from "react";
-import type { CartProductType, ProductContextType } from "../types";
+import type { CartProductType, ProductContextType } from "../../types";
 import useFetchProducts from "../hooks/useFetchProducts";
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);

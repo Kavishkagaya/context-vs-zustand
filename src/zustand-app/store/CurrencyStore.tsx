@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import type { CurrencyStoreType } from "../types";
-import currencyLoader from "../data/currencyLoader";
+import type { CurrencyStoreType } from "../../types";
+import currencyLoader from "../../data/currencyLoader";
 
 export const useCurrencyStore = create<CurrencyStoreType>((set, get) => ({
     currency: "USD",

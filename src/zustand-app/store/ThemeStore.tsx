@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { ThemeStoreType } from "../types";
+import type { ThemeStoreType } from "../../types";
 
 export const useThemeStore = create<ThemeStoreType>((set) => ({
     theme: "light",
