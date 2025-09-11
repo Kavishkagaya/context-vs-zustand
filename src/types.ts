@@ -45,6 +45,8 @@ interface ProductStoreType {
         addToCart: (id: number, count: number) => void;
         removeFromCart: (id: number) => void;
         updateCart: (id: number, count: number) => void;
+        loadProducts: () => Promise<void>;
+        loadCart: () => Promise<void>;
     }
 }
 
