@@ -21,6 +21,7 @@ interface ProductContextType {
     addToCart: (id: number, count: number) => void;
     removeFromCart: (id: number) => void;
     updateCart: (id: number, count: number) => void;
+    isLoading: boolean;
 }
 
 interface CurrencyContextType {
@@ -37,6 +38,7 @@ interface ThemeContextType {
 }
 
 interface ProductStoreType {
+    isLoading: boolean;
     products: Record<number, ProductType>;
     cart: Record<number, CartProductType>;
     actions: {

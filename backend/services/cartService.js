@@ -1,18 +1,18 @@
 const cart = {};
 
 exports.addToCart = (cartProduct) => {
-    const { productId } = cartProduct;
-    if (cart[productId]) {
-        cart[productId] += quantity;
+    const { id, quantity } = cartProduct;
+    if (cart[id]) {
+        cart[id] += quantity;
     } else {
-        cart[productId] = { ...cartProduct};
+        cart[id] = { ...cartProduct};
     }
-    return cart[productId];
+    return cart[id];
 };
 
 exports.updateCart = (productId, quantity) => {
     if (cart[productId]) {
-        cart[productId] = quantity;
+        cart[productId] = { ...cart[productId], quantity};
     }
     return cart[productId];
 };
@@ -22,6 +22,7 @@ exports.removeFromCart = (productId) => {
 };
 
 exports.getCart = () => {
+    console.log("Current cart:", cart);
     return cart;
 };
 

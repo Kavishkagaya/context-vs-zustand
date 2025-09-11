@@ -20,5 +20,5 @@ exports.updateCartItem = (req, res) => {
 exports.removeCartItem = (req, res) => {
     const { id } = req.params;
     removeFromCart(id);
-    res.json({ message: "Item removed from cart", productId });
+    res.json({ message: "Item removed from cart", id });
 }

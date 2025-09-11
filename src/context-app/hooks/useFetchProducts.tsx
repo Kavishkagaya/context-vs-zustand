@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
-import getProducts from "../../api/productApi";
+import { getProducts } from "../../api/productApi";
 import type { ProductType } from "../../types";
 
 const useFetchProducts = () => {
     const [products, setProducts] = useState<Record<number, ProductType>>({});
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchProducts = async () => {
-            const response = await getProducts();
-            const productsMap: Record<number, ProductType> = {};
-            response.products.forEach((product) => {
-                productsMap[product.id] = product;
-            });
-            setProducts(productsMap);
+            try{
+                const products = await getProducts();
+                setProducts(products);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
         };
         fetchProducts();
     }, []);
 
-    return {products, setProducts};
+    return { products, setProducts };
 };
 
 export default useFetchProducts;

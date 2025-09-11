@@ -1,17 +1,28 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import type { CartProductType, ProductContextType } from "../../types";
 import useFetchProducts from "../hooks/useFetchProducts";
+import useFetchCart from "../hooks/useFetchCart";
+import { updateProductStock } from "../../api/productApi";
+import { addToCart as addToCartApi, updateCart as updateCartApi, removeFromCart as removeFromCartApi } from "../../api/cartApi";
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
-const ProductContextProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
+const ProductContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { products, setProducts } = useFetchProducts();
-    const [cart, setCart] = useState<Record<number, CartProductType>>({});
+    const { cart, setCart } = useFetchCart();
 
-    const addToCart = (id: number, quantity: number) => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const addToCart = async (id: number, quantity: number) => {
+        setIsLoading(true);
         const product = products[id];
         if (!product || quantity === 0) return;
         const stock = product.stock - quantity;
+
+        const prevProducts = products;
+        const prevCart = cart;
+
+        // emulate added cart item
         setProducts(
             prevProducts => ({ ...prevProducts, [id]: { ...prevProducts[id], stock } })
         );
@@ -30,9 +41,31 @@ const ProductContextProvider: React.FC<{children: React.ReactNode}> = ({children
                 }
             }
         )
+
+        // send request to add to cart api
+        try {
+            const newCartItem: CartProductType = { ...product, quantity };
+            await Promise.all([
+                updateProductStock(id, stock),
+                addToCartApi(newCartItem)
+            ]);
+        } catch (error) {
+            // rollback to previous state if error occurs
+            setProducts(prevProducts);
+            setCart(prevCart);
+            console.error("Failed to add to cart:", error);
+        }
+        finally {
+            setIsLoading(false);
+        }
     }
 
-    const removeFromCart = (id: number) => {
+    const removeFromCart = async (id: number) => {
+        setIsLoading(true);
+
+        const prevProducts = products;
+        const prevCart = cart;
+
         const cartProduct = cart[id];
         if (!cartProduct) return;
         setProducts(
@@ -45,24 +78,61 @@ const ProductContextProvider: React.FC<{children: React.ReactNode}> = ({children
                 return newCart;
             }
         )
+
+        // send request to remove from cart api
+        try{
+            await Promise.all([
+                updateProductStock(id, products[id].stock + cartProduct.quantity),
+                removeFromCartApi(id)
+            ]);
+        } catch (error) {
+            // rollback to previous state if error occurs
+            setProducts(prevProducts);
+            setCart(prevCart);
+            console.error("Failed to remove from cart:", error);
+        }
+        finally {
+            setIsLoading(false);
+        }
     }
 
-    const updateCart = (id: number, quantity: number) => {
+    const updateCart = async (id: number, quantity: number) => {
+        setIsLoading(true);
+        
+        const prevProducts = products;
+        const prevCart = cart;
+        
         const cartProduct = cart[id];
         if (!cartProduct) return;
         if (quantity === 0) return removeFromCart(id);
         const change = cartProduct.quantity - quantity;
-        if(change === 0) return;
+        if (change === 0) return;
         setProducts(
             (prevProducts) => ({ ...prevProducts, [id]: { ...prevProducts[cartProduct.id], stock: prevProducts[cartProduct.id].stock + change } })
         )
         setCart(
-            (prevCart)=> ({ ...prevCart, [id]: { ...prevCart[id], quantity: quantity } })
+            (prevCart) => ({ ...prevCart, [id]: { ...prevCart[id], quantity: quantity } })
         )
+
+        // send request to update cart api
+        try {
+            await Promise.all([
+                updateProductStock(id, products[id].stock + change),
+                updateCartApi(id, quantity)
+            ]);
+        } catch (error) {
+            // rollback to previous state if error occurs
+            setProducts(prevProducts);
+            setCart(prevCart);
+            console.error("Failed to update cart:", error);
+        }
+        finally {
+            setIsLoading(false);
+        }
     }
 
     return (
-        <ProductContext.Provider value={{ products, cart, addToCart, removeFromCart, updateCart }}>
+        <ProductContext.Provider value={{ products, cart, addToCart, removeFromCart, updateCart, isLoading }}>
             {children}
         </ProductContext.Provider>
     );
