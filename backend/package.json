@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "sample backend for simple app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kavishkagaya/context-vs-zustand.git"
+  },
+  "author": "Kavishka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kavishkagaya/context-vs-zustand/issues"
+  },
+  "homepage": "https://github.com/Kavishkagaya/context-vs-zustand#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
