@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import getProducts from "../../data/dataLoader";
+import getProducts from "../../api/productApi";
 import type { ProductType } from "../../types";
 
 const useFetchProducts = () => {

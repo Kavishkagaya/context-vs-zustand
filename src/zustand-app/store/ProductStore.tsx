@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import type { ProductStoreType } from '../../types'
-import getProducts from '../../data/dataLoader';
+import getProducts from '../../api/productApi';
 
 export const useProductStore = create<ProductStoreType>((set) => {
     const initialProducts = getProducts().products;

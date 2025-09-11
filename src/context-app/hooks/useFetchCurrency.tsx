@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import currencyLoader from "../../data/currencyLoader";
+import currencyLoader from "../../api/currencyApi";
 
 const useFetchCurrency = (baseCurrency: string) => {
     const [currencyList, setCurrencyList] = useState<Record<string, number>>({});
