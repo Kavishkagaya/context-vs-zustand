@@ -10,9 +10,9 @@ const PriceTagComponent : React.FC<PriceTagProps> = ({price, currency = 'USD', c
     const convertedPrice = converter(price, currency);
 
     return (
-        <span className="price-tag">
+        <>
             {formatter(convertedPrice, currency)}
-        </span>
+        </>
     );
 }
 

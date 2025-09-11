@@ -8,12 +8,12 @@ function App() {
   return (
     <div className="App">
       <div className="radio-group">
-        <label>
-          <input type="radio" name="method" value="context" checked={method === "context"} onChange={() => setMethod("context")} />
+        <input type="radio" name="method" value="context" id="context-label" checked={method === "context"} onChange={() => setMethod("context")} />
+        <label htmlFor="context-label">
           Context
         </label>
-        <label>
-          <input type="radio" name="method" value="zustand" checked={method === "zustand"} onChange={() => setMethod("zustand")} />
+        <input type="radio" name="method" value="zustand" id="zustand-label" checked={method === "zustand"} onChange={() => setMethod("zustand")} />
+        <label htmlFor="zustand-label">
           Zustand
         </label>
       </div>

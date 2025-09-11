@@ -22,13 +22,17 @@ const ProductCardComponent: React.FC<ProductCardProps> = ({ product, addToCart, 
         <div className="product-card">
             <p className="render-count">{renderCount.current++}</p>
             <img src={product.image} alt={product.name} />
+            <span className="product-category">{product.category}</span>
             <h2>{product.name}</h2>
             <p>{product.description}</p>
-            <p className="product-price">{children}</p>
-            <span className="product-category">{product.category}</span>
-            <span className={`product-stock ${product.stock === 0 ? 'danger' : ''}`}>{product.stock}</span>
-            <Counter count={count} setCount={setCount} maxCount={product.stock} />
-            <button onClick={handleAddToCart}>Add to Cart</button>
+            <div className="flex justify-between align-center mt-1 mb-1">
+                <p className="product-stock">In stock : <span className={`${product.stock === 0 ? 'danger' : ''}`}>{product.stock}</span></p>
+                <p className="product-price">{children}</p>
+            </div>
+            <div className="card-footer">
+                <Counter count={count} setCount={setCount} maxCount={product.stock} />
+                <button onClick={handleAddToCart}>Add to Cart</button>
+            </div>
         </div>
     );
 }

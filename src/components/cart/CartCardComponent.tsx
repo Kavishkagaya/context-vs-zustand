@@ -26,8 +26,10 @@ const CartCardComponent: React.FC<CartCardProps> = ({ cartProduct, children, onR
                     <h3>{cartProduct.name}</h3>
                     <p className="product-price">{children}</p>
                     <Counter count={count} setCount={setCount} maxCount={cartProduct.quantity} />
-                    <button onClick={() => onRemove(cartProduct.id)}>Remove</button>
-                    <button onClick={() => onUpdate(cartProduct.id, count)} disabled={count === cartProduct.quantity}>Update</button>
+                    <div className="flex gap align-center">
+                        <button onClick={() => onRemove(cartProduct.id)}>Remove</button>
+                        <button onClick={() => onUpdate(cartProduct.id, count)} disabled={count === cartProduct.quantity}>Update</button>
+                    </div>
                 </div>
             </div>
         </div>
