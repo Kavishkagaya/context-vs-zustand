@@ -1,17 +1,20 @@
 const cart = {};
 
-exports.addToCart = (productId, quantity) => {
+exports.addToCart = (cartProduct) => {
+    const { productId } = cartProduct;
     if (cart[productId]) {
         cart[productId] += quantity;
     } else {
-        cart[productId] = quantity;
+        cart[productId] = { ...cartProduct};
     }
+    return cart[productId];
 };
 
 exports.updateCart = (productId, quantity) => {
     if (cart[productId]) {
         cart[productId] = quantity;
     }
+    return cart[productId];
 };
 
 exports.removeFromCart = (productId) => {

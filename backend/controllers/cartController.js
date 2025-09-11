@@ -6,19 +6,19 @@ exports.getAllCartItems = (req, res) => {
 }
 
 exports.addCartItem = (req, res) => {
-    const { productId, quantity } = req.body;
-    const cartProduct = addToCart(productId, quantity);
+    const cartProduct = addToCart(req.body);
     res.json({ message: "Item added to cart", cartProduct });
 }
 
 exports.updateCartItem = (req, res) => {
-    const { productId, quantity } = req.body;
-    const updatedCartItem = updateCart(productId, quantity);
+    const { id } = req.params;
+    const { quantity } = req.body;
+    const updatedCartItem = updateCart(id, quantity);
     res.json({ message: "Cart item updated", updatedCartItem });
 }
 
 exports.removeCartItem = (req, res) => {
-    const { productId } = req.params;
-    removeFromCart(productId);
+    const { id } = req.params;
+    removeFromCart(id);
     res.json({ message: "Item removed from cart", productId });
 }

@@ -7,7 +7,7 @@ router.put("/products/:id", updateProductItem)
 
 router.get("/cart", getAllCartItems)
 router.post("/cart", addCartItem)
-router.put("/cart", updateCartItem)
-router.delete("/cart", removeCartItem)
+router.put("/cart/:id", updateCartItem)
+router.delete("/cart:id", removeCartItem)
 
 module.exports = router
