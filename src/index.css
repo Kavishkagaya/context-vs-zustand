@@ -256,6 +256,7 @@ select:focus{
   border-radius: 3em;
   padding: 0.2rem;
   font-weight: 600;
+  z-index: 10;
 }
 
 .radio-group label{
