@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ContextApp from "./context-app/App";
 import ZustandApp from "./zustand-app/App";
+import QueryApp from "./query-app/App";
 
 function App() {
   const [method, setMethod] = useState("context");
@@ -16,11 +17,17 @@ function App() {
         <label htmlFor="zustand-label">
           Zustand
         </label>
+        <input type="radio" name="method" value="zustand" id="query-label" checked={method === "query"} onChange={() => setMethod("query")} />
+        <label htmlFor="query-label">
+          query
+        </label>
       </div>
       {method === "context" ? (
         <ContextApp />
-      ) : (
+      ) : method === "zustand" ? (
         <ZustandApp />
+      ) : (
+        <QueryApp />
       )}
     </div>
   )
