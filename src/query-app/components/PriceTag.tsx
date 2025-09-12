@@ -1,6 +1,6 @@
 import PriceTagComponent from "../../components/pricetag/PriceTagComponent";
-import { useCurrencyStore } from "../../zustand-app/store/CurrencyStore";
-import { useCurrencyActions } from "../../zustand-app/hooks/useCurrencyActions";
+import { useCurrencyStore } from "../store/CurrencyStore";
+import { useCurrencyActions } from "../hooks/useCurrencyActions";
 
 interface PriceTagProps {
     price: number;
