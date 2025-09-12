@@ -252,7 +252,8 @@ select:focus{
   left: 50%;
   transform: translateX(-50%);
   background-color: #1a163b;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   border-radius: 3em;
   padding: 0.2rem;
   font-weight: 600;
@@ -264,6 +265,7 @@ select:focus{
   border-radius: 2em;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-align: center;
 }
 
 .radio-group input{

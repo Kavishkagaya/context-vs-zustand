@@ -24,12 +24,9 @@ export const useAddToCart = () => {
             if (!currentProduct || currentProduct.stock < cartItem.quantity) {
                 throw new Error("Insufficient stock");
             }
-
-            const newStock = currentProduct.stock - cartItem.quantity
-
             await Promise.all([
                 addToCart(cartItem),
-                updateProductStock(cartItem.id, newStock)
+                updateProductStock(cartItem.id, currentProduct.stock)
             ]);
         },
 
@@ -77,7 +74,7 @@ export const useUpdateCart = () => {
 
             await Promise.all([
                 updateCart(productId, quantity),
-                updateProductStock(productId, currentProduct.stock + (currentCartItem.quantity - quantity))
+                updateProductStock(productId, currentProduct.stock)
             ])
         },
         onMutate: async ({ productId, quantity }: { productId: number, quantity: number }) => {
@@ -119,16 +116,15 @@ export const useRemoveFromCart = () => {
     const queryClient = useQueryClient()
 
     return useMutation({
-        mutationFn: async ({ productId }: { productId: number }) => { 
+        mutationFn: async ({ productId }: { productId: number }) => {
             const currentProduct = queryClient.getQueryData<Record<number, ProductType>>(["products"])?.[productId];
-            const currentCartItem = queryClient.getQueryData<Record<number, CartProductType>>(["cart"])?.[productId];
-            if (!currentProduct || !currentCartItem) {
+            if (!currentProduct) {
                 throw new Error("Item not in cart");
             }
 
             await Promise.all([
                 removeFromCart(productId),
-                updateProductStock(productId, currentProduct.stock + currentCartItem.quantity)
+                updateProductStock(productId, currentProduct.stock)
             ])
         },
         onMutate: async ({ productId }: { productId: number }) => {
@@ -137,7 +133,7 @@ export const useRemoveFromCart = () => {
 
             const previousCart = queryClient.getQueryData<Record<number, CartProductType>>(["cart"]);
             const previousProducts = queryClient.getQueryData<Record<number, ProductType>>(["products"]);
-            
+
             // optimistic updates
             queryClient.setQueryData(["cart"], (old: Record<number, CartProductType>) => {
                 if (!old) return old;
